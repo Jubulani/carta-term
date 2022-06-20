@@ -1,0 +1,33 @@
+struct root {
+    pcap_header: PcapHeader,
+    packet: PacketRecord
+}
+
+struct PcapHeader {
+    magic_number: [uint8; 4],
+    major_version: uint16_le,
+    minor_version: uint16_le,
+    reserved_1: [uint8; 4],
+    reserved_2: [uint8; 4],
+    snap_len: uint32_le,
+    link_type: [uint8; 4]
+}
+
+struct PacketRecord {
+    timestamp_seconds: uint32_le,
+    timestamp_micro: uint32_le,
+    captured_len: uint32_le,
+    original_len: uint32_le,
+    packet_data: PacketData
+}
+
+struct PacketData {
+    ip_header: IPHeader,
+}
+
+struct IPHeader {
+    version: uint8,
+    IHL: uint8,
+    TOS: [uint8; 2],
+    total_len: uint16_le,
+}
